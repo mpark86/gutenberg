@@ -15,7 +15,6 @@ import {
  */
 import { compose } from '@wordpress/compose';
 import {
-	BottomSheet,
 	PanelBody,
 	RangeControl,
 	SelectControl,
@@ -295,20 +294,17 @@ class GalleryEdit extends Component {
 		if ( ! hasImages ) {
 			return mediaPlaceholder;
 		}
-
 		return (
 			<>
 				<InspectorControls>
 					<PanelBody title={ __( 'Gallery Settings' ) }>
-						{ images.length > 1 && <BottomSheet.RangeCell
+						{ images.length > 1 && <RangeControl
 							label={ __( 'Columns' ) }
-							icon={ 'admin-settings' }
 							value={ columns }
-							defaultValue={ 2 }
-							minimumValue={ 1 }
-							maximumValue={ Math.min( MAX_COLUMNS, images.length ) }
-							separatorType={ 'fullWidth' }
-							onChangeValue={ this.setColumnsNumber }
+							onChange={ this.setColumnsNumber }
+							min={ 1 }
+							max={ Math.min( MAX_COLUMNS, images.length ) }
+							required
 						/> }
 						<ToggleControl
 							label={ __( 'Crop Images' ) }
