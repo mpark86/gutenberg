@@ -39,7 +39,7 @@ const styles = StyleSheet.create( {
 		left: 0,
 		right: 0,
 		padding: 5,
-		borderWidth: 3, 
+		borderWidth: 3,
 	},
 	button: {
 		width: 30,
@@ -70,7 +70,6 @@ const styles = StyleSheet.create( {
 		right: 0,
 	},
 } );
-
 
 class GalleryImage extends Component {
 	constructor() {
@@ -144,12 +143,13 @@ class GalleryImage extends Component {
 	}
 
 	render() {
-		const { 
+		const {
 			url, alt, id, linkTo, link, isFirstItem, isLastItem, isSelected, caption,
 			isBlockSelected, onRemove, onMoveForward, onMoveBackward, setAttributes,
-			 'aria-label': ariaLabel, isCropped } = this.props;
+			'aria-label': ariaLabel, isCropped } = this.props;
 
 		// I'm not sure if or how we can use this on mobile
+		// eslint-disable-next-line no-unused-vars
 		let href;
 
 		switch ( linkTo ) {
@@ -162,9 +162,9 @@ class GalleryImage extends Component {
 		}
 
 		return (
-			<TouchableWithoutFeedback 
-			onPress={ this.props.onSelect }
-			disabled={ ! isBlockSelected }
+			<TouchableWithoutFeedback
+				onPress={ this.props.onSelect }
+				disabled={ ! isBlockSelected }
 			>
 				<View style={ styles.container }>
 					<Image
@@ -180,14 +180,14 @@ class GalleryImage extends Component {
 						aria-label={ ariaLabel }
 						ref={ this.bindContainer }
 					/>
-					<View style={ [ styles.overlay , {
+					<View style={ [ styles.overlay, {
 						borderColor: isSelected ? '#0070ff' : '#00000000',
 					} ] }>
 
-					{ isBlobURL( url ) && <Spinner /> }
-					{ isSelected && (
-						<View style={ styles.toolbar }>
-							<View style={ styles.moverButtons } >
+						{ isBlobURL( url ) && <Spinner /> }
+						{ isSelected && (
+							<View style={ styles.toolbar }>
+								<View style={ styles.moverButtons } >
 									<Button
 										style={ styles.button }
 										icon="arrow-left"
@@ -205,29 +205,29 @@ class GalleryImage extends Component {
 										aria-disabled={ isLastItem }
 										disabled={ ! isSelected }
 									/>
+								</View>
+								<Button
+									style={ styles.removeButton }
+									icon="trash"
+									onClick={ onRemove }
+									label={ __( 'Remove Image' ) }
+									disabled={ ! isSelected }
+								/>
 							</View>
-							<Button
-								style={ styles.removeButton }
-								icon="trash"
-								onClick={ onRemove }
-								label={ __( 'Remove Image' ) }
-								disabled={ ! isSelected }
-							/>
-						</View>
-					) }
-					{ ( isSelected || !! caption ) && ( 
-						<View style={ styles.caption } >
-							<RichText
-								tagName="figcaption"
-								placeholder={ isSelected ? __( 'Write caption…' ) : null }
-								value={ caption }
-								isSelected={ this.state.captionSelected }
-								onChange={ ( newCaption ) => setAttributes( { caption: newCaption } ) }
-								unstableOnFocus={ this.onSelectCaption }
-								inlineToolbar
-							/>
-						</View>
-					) }
+						) }
+						{ ( isSelected || !! caption ) && (
+							<View style={ styles.caption } >
+								<RichText
+									tagName="figcaption"
+									placeholder={ isSelected ? __( 'Write caption…' ) : null }
+									value={ caption }
+									isSelected={ this.state.captionSelected }
+									onChange={ ( newCaption ) => setAttributes( { caption: newCaption } ) }
+									unstableOnFocus={ this.onSelectCaption }
+									inlineToolbar
+								/>
+							</View>
+						) }
 					</View>
 				</View>
 			</TouchableWithoutFeedback>
